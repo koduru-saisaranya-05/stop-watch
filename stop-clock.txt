@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      border: 2px black solid;
+      padding:50px
+    }
+    .stopwatch{
+      font-size: 70px;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      /* gap: 10px; */
+      background-color: black;
+    }
+    button{
+      padding: 20px 30px;
+      font-size: 30px;
+      border-radius: 5px;
+    }
+    .main{
+      display: flex;
+      flex-direction: column;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+  <div class="stopwatch">
+<div id="hrs"></div>
+<div id="min"></div>
+<div id="sec"></div>
+<div id="msec"></div>
+  </div>
+  <div class="buttons" style="display: flex; gap: 30px;">
+    <button id="start" onclick="begin()">Start</button>
+    <button id="pause" onclick="stop()">pause</button>
+    <button id="restart" onclick="restart()">restart</button>
+  </div>
+  </div>
+
+</body>
+<script>
+  var msec =0;
+  var sec =0;
+  var min =0;
+  var hrs =0;
+  function begin (){
+    document.getElementById("start").setAttribute('disabled','disabled')
+    watch= setInterval(()=>{
+      msec++;
+      if (msec==100){
+        msec=0;
+        sec++;
+        if(sec==60){
+          sec=0;
+          min++;
+          document.getElementById("min").innerHTML=min+"m";
+          if(min==60){
+            min=0;
+            hrs++;
+            document.getElementById("hrs").innerHTML=hrs+"h";
+          }
+        }
+      }
+      document.getElementById("msec").innerHTML=msec+"ms";
+      document.getElementById("sec").innerHTML=sec+"s";
+      
+    },10)
+  }
+  function stop(){
+     document.getElementById("start").removeAttribute('disabled','disabled')
+     clearInterval(watch)
+  }
+  function restart(){
+    msec=0;
+    sec=0;
+    min=0;
+    hrs=0;
+    document.getElementById("msec").innerHTML=msec;
+    document.getElementById("sec").innerHTML=sec;
+    document.getElementById("min").innerHTML=min;
+    document.getElementById("hrs").innerHTML=hrs;
+
+  }
+
+</script>
+</html>
